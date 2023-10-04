@@ -1,0 +1,38 @@
+.container{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+
+.image{
+    border-radius: 5px;
+}
+
+.content{
+
+}
+
+.title{
+    margin-bottom: 30px;
+}
+
+.desc{
+    font-size: 18px;
+    color: #999;
+}
+
+.btn{
+    padding: 10px;
+    cursor: pointer;
+    background: #53c28b;
+    border: none;
+    border-radius: 5px;
+    width: max-content;
+    color: #fff;
+    font-size: 16px;
+}
+  
+.btn:active{
+    transform: scale(.9);
+}
