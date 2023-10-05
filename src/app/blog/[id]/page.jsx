@@ -32,7 +32,7 @@ export default async function BlogPost({ params }){
     
     return(
         <div className={styles.container}>
-            <div className={styles.top}>
+           <div className={styles.top}>
                 <h1 className={styles.title}>{data.title}</h1>
                 <div className={styles.info}>
                     <p className={styles.desc}>{data.body}</p>

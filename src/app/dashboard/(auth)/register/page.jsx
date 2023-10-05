@@ -16,26 +16,23 @@ export default function Register(){
         const email = e.target[1].value
         const password = e.target[2].value
 
-       // try{
-            //const res = await 
-            fetch('/api/auth/register', {
+       try{
+            const res = await fetch('/api/auth/register', {
                 method:'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, password })
-            }).then(res=>{
-                if(res.ok){
-                    alert('Usuário criado')
-                }
-            }).catch(e=>{
-                alert(e.message)
             })
 
-            //res.status === 201 && router.push('/dashboard')
+            if(res.status === 403){
+                alert('Usuário já cadastrado')
+            }else if(res.status !== 201 && res.status !== 200){
+                alert(`Erro ao cadastrar usuário: ${res.status}`)
+            }
 
-        /* }catch(error){
+            res.status === 201 && router.push('/dashboard')
+        }catch(error){
             alert(error)
-        } */
-
+        }
     }
     
 

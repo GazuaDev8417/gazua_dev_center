@@ -1,5 +1,6 @@
 import styles from './page.module.css'
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 
@@ -42,7 +43,7 @@ export default async function Blog(){
                     </div>
                     <div className={styles.content}>
                         <h1 className={styles.title}>{item.title}</h1>
-                        <a href={`blog/${item.id}`} className={styles.btn}>Ler post</a>
+                        <Link href={`blog/${item.id}`} className={styles.btn}>Ler post</Link>
                     </div>
                 </div>
             ))}
