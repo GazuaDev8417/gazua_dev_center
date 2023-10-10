@@ -1,13 +1,16 @@
 'use client'
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import Link from "next/link"
 import styles from './page.module.css'
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import Loading from "@/components/loading/Loading"
 
 
 export default function Login(){
     const router = useRouter()
+    const session = useSession()
+
 
     const handleSubmit = async(e)=>{
         e.preventDefault()
@@ -15,6 +18,14 @@ export default function Login(){
         const password = e.target[1].value
 
         signIn('credentials', { email, password })       
+    }
+
+    if(session.status === 'loading'){
+        return<Loading/>
+    }
+
+    if(session.status === 'authenticated'){
+        router.push('/dashboard')
     }
 
 

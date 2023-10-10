@@ -3,11 +3,13 @@
 import Link from 'next/link'
 import styles from './page.module.css'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 
 
 export default function Register(){
     const router = useRouter()
+    const session = useSession()
     
 
     const handleSubmit = async(e)=>{
@@ -29,10 +31,15 @@ export default function Register(){
                 alert(`Erro ao cadastrar usuário: ${res.status}`)
             }
 
-            res.status === 201 && router.push('/dashboard')
+            res.status === 201 && router.push('/dashboard/login')
         }catch(error){
             alert(error)
         }
+    }
+
+
+    if(session.status === 'authenticated'){
+        router.push('/dashboard')
     }
     
 
