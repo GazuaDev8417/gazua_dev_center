@@ -28,10 +28,11 @@ const getData = async()=>{
 export default async function Blog(){
     const data = await getData()
     
+    const posts = Array.isArray(data) ? data : []
 
     return(
         <div className={styles.mainContainer}>
-            {data.map(item=>(
+            {posts[0].map(item=>(
                 <div className={styles.container} key={item.id}>
                     <div className={styles.imageContainer}>
                         <Image
