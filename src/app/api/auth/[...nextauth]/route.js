@@ -2,7 +2,7 @@ import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import con from "@/utils/db"
-import Authentication from "@/services/Authentication"
+import bcrypt from 'bcryptjs'
 
 
 const handler = NextAuth({
@@ -16,12 +16,12 @@ const handler = NextAuth({
       name:'Credentials',
       async authorize(credentials){
         try{
-            const [user] = await con.promise().query(
-              'SELECT * FROM gazuadev WHERE email = ?', [credentials.email]
-            )
+            const [user] = await con('labeninja_users').where({
+              email: credentials.email
+            })
 
             if(user){
-              const isPasswordCorrect = Authentication.compare(credentials.password, user[0].password)
+              const isPasswordCorrect = await bcrypt.compare(user.password, credentials.password)
 
               if(isPasswordCorrect){
                 return user

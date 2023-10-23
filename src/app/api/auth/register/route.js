@@ -9,18 +9,20 @@ export const POST = async(request)=>{
         const { name, email, password } = await request.json()
         const hash = Authentication.hash(password)
 
-        const [user] = await con.promise().query(
-            'SELECT * FROM gazuadev WHERE email = ?', [email]
-        )
+        const [user] = await con('labeninja_users').where({
+            email
+        })
 
-        if(user[0]){
+        if(user){
             return new Response('Usuário já cadastrado', { status: 403 })
         }
-
-        await con.promise().query(
-            'INSERT INTO gazuadev VALUES(?, ?, ?, ?)',
-            [id, name, email, hash]
-        )
+        
+        await con('labeninja_users').insert({
+            id,
+            name,
+            email,
+            password: hash
+        })
 
         return new Response('Usuário cadastrado', { status: 201 })
     }catch(e){
